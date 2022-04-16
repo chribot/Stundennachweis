@@ -1,0 +1,48 @@
+Planung Stundennachweis
+
+-----------
+Lastenheft:
+-----------
+    (enthält die Aufgabenstellung, was gemacht werden soll)
+    (der Inhalt soll SMART-Kriterien erfüllen - Specific, Measurable, Achievable, Reasonable, Time-bound)
+    (https://de.wikipedia.org/wiki/SMART_(Projektmanagement))
+
+    1. Vorlage pixelgenau erstellen
+    2. Felder eingebbar, änderbar
+    3. Eingabefelder unsichtbar
+    4. sinnvolle Daten automatisch erzeugen und eintragen
+    5. Fertigstellung in der Woche nach Ostern
+    x. (nice to have) Daten speichern und wiederherstellen (CRUD)
+
+  Funktionale Anforderungen:
+    1. pro Monat wird eine Seite generiert
+    2. Daten müssen hinterlegt werden (config):
+        - Name des Teilnehmers
+        - Monat
+        - Jahr
+        - Kundennummer
+        - Arbeitsbeginn und -ende
+        - Feiertage von September bis Ende des Folgejahres
+        - Praktikumsstelle
+    3. Erstellen und Anzeigen der 4 Kopfdaten
+    4. Ausfüllen Mo-Fr: Arbeitsbeginn und -ende, Zeitstunden (falls kein Feiertag)
+
+  Nicht funktionale Anforderungen:
+    1. Seite muss innerhalb von einer Sekunde mit allen Daten angezeigt werden
+    2. Seite muss ausgedruckt werden können
+
+--------------
+Pflichtenheft:
+--------------
+
+    0. (siehe Lastenheft)
+    1. Arbeitsumgebung für Webseite einrichten
+    2. Versionsverwaltung einsetzen
+    3. PDF als Hintergrundbild einbinden (Ausgabegröße, Position anpassen)
+    4. Config-Datei erstellen und einbinden
+    5. Kopfdaten automatisch ausfüllen, aber nicht änderbar
+    6. Berechnung der Arbeitstage, abhängig von Monat/Jahr oder Feiertag
+    7. Formularfelder (automatische/potenzielle) richtig positionieren und Länge anpassen
+
+
+
