@@ -1,21 +1,43 @@
 /**
  * @param {String} id - id of parent div
- * @param {String} value - text for input elements
+ * @param {Number} numberOfInputs - id of parent div
+ * @param {String} defaultValue - text for input elements
+ * @param {Number[]} arrayWeekend - array of weekend-days (no workdays)
+ * @param {Number[]} arrayHoliday - array of holidays
  */
-function generateInputElements(id, value) {
+function generateInputElements(id, numberOfInputs, defaultValue, arrayWeekend, arrayHoliday) {
     let html = '';
     const container = document.getElementById(id);
 
     // generiere input Felder
-    for (let i = 0; i < 31; i++) {
+    for (let i = 0; i < numberOfInputs; i++) {
         html += '<input type="text">';
     }
     container.innerHTML = html;
 
     // Wert eintragen
     const inputFelder = container.childNodes;
+    const hgFarbe = "rgb(244,242,239)";
+    let day = 1;
     for (const inputFeld of inputFelder) {
-        inputFeld.value = value;
+        if (arrayWeekend.includes(day)) {
+            if (id==="bemerkung") {
+                inputFeld.value = "Wochenende";
+            } else {
+                inputFeld.style.backgroundColor = hgFarbe;
+                inputFeld.value = "---";
+            }
+        } else if (arrayHoliday.includes(day)) {
+            if (id==="bemerkung") {
+                inputFeld.value = "Feiertag";
+            } else {
+                inputFeld.style.backgroundColor = hgFarbe;
+                inputFeld.value = "---";
+            }
+        } else {
+            inputFeld.value = defaultValue;
+        }
+        day++;
     }
 }
 
@@ -40,11 +62,29 @@ function endOfMonth(month, year) {
         year += 1;
         month = 0;
     }
-    // Date expects month from range 0-11
+    // Date expects month range 0-11
     // our endOfMonth function uses range 1-12 -> month+1
     // we set Date to next month (month+1), and go one day backwards (date=0) to last day of previous month
     const d = new Date(year, month, 0);
     return d.getDate();
+}
+
+/**
+ * @param {Number} month - January = 1 ... December = 12
+ * @param {Number} year - year
+ * @return {Number[]} - list of all days that are not workdays
+ */
+function weekendDays(month, year) {
+    let date = new Date(year, month, 1);
+    let wd = [];
+    const lastDay = endOfMonth(month, year);
+    for (let i = 0; i < lastDay; i++) {
+        date.setDate(i+1);
+        if (date.getDay()===6 || date.getDay()===0) {
+            wd.push(date.getDate());
+        }
+    }
+    return wd;
 }
 
 function createInputs() {
@@ -55,23 +95,35 @@ function createInputs() {
     const minuteEnde = 30;
     const arbeitBeginn = twoDigits(stundeBeginn) + ':' + twoDigits(minuteBeginn) + ' Uhr';
     const arbeitEnde = stundeEnde + ':' + minuteEnde + ' Uhr';
+    const monat = 2;
+    const jahr = 2022;
+    const zeitraum = twoDigits(monat) + ' / ' + jahr.toString();
+    const tageMonat = endOfMonth(monat, jahr);
+    const wochenenden = weekendDays(monat, jahr);
+    const feiertage = [6, 8, 15];
+    const teilnehmer = "Christoph Böttger";
+    const kundenNr = "12345";
+    const firma = "IT GmbH";
 
-    // Tage des Monats
-    console.log(endOfMonth(2, 2000));
+    // Werte in die 4 Kopffelder eintragen
+    document.getElementById("teilnehmer").value = teilnehmer;
+    document.getElementById("kunden-nr").value = kundenNr;
+    document.getElementById("praktikumsstelle").value = firma;
+    document.getElementById("zeitraum").value = zeitraum;
 
     // Arbeitsbeginn
-    generateInputElements("arbeitsbeginn", arbeitBeginn);
+    generateInputElements("arbeitsbeginn", tageMonat, arbeitBeginn, wochenenden, feiertage);
 
     // Arbeitsende
-    generateInputElements("arbeitsende", arbeitEnde);
+    generateInputElements("arbeitsende", tageMonat, arbeitEnde, wochenenden, feiertage);
 
     // Zeitstunden
     const startDate = new Date(0, 0, 0, stundeBeginn, minuteBeginn, 0);
     const endDate = new Date(0, 0, 0, stundeEnde, minuteEnde, 0);
     const diff = endDate.getTime() - startDate.getTime();
     const diffStunden = diff / 3600000;
-    generateInputElements("zeitstunden", diffStunden.toString());
+    generateInputElements("zeitstunden", tageMonat, diffStunden.toString(), wochenenden, feiertage);
 
     // Bemerkung
-    generateInputElements("bemerkung", 'Feiertag');
+    generateInputElements("bemerkung", tageMonat, '', wochenenden, feiertage);
 }
