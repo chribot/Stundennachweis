@@ -6,7 +6,6 @@
   "minuteBeginn": 0,
   "stundeEnde": 13,
   "minuteEnde": 30,
-  "monat": 2,
-  "jahr": 2022,
-  "feiertage": [6, 8, 15]
+  "monat": 4,
+  "jahr": 2022
 }

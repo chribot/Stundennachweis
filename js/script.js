@@ -75,7 +75,7 @@ function endOfMonth(month, year) {
  * @return {Number[]} - list of all days that are not workdays
  */
 function weekendDays(month, year) {
-    let date = new Date(year, month, 1);
+    let date = new Date(year, month-1);
     let wd = [];
     const lastDay = endOfMonth(month, year);
     for (let i = 0; i < lastDay; i++) {
@@ -121,7 +121,7 @@ function createInputs(config) {
     const zeitraum = twoDigits(monat) + ' / ' + jahr.toString();
     const tageMonat = endOfMonth(monat, jahr);
     const wochenenden = weekendDays(monat, jahr);
-    const feiertage = config.feiertage;
+    const feiertage = beweglicheFeiertage(monat, jahr).concat( unbeweglicheFeiertage(monat) );
     const teilnehmer = config.teilnehmer;
     const kundenNr = config.kundenNr;
     const firma = config.firma;
@@ -131,6 +131,8 @@ function createInputs(config) {
     document.getElementById("kunden-nr").value = kundenNr;
     document.getElementById("praktikumsstelle").value = firma;
     document.getElementById("zeitraum").value = zeitraum;
+
+    console.log(wochenenden);
 
     // Arbeitsbeginn
     generateInputElements("arbeitsbeginn", tageMonat, arbeitBeginn, wochenenden, feiertage);
