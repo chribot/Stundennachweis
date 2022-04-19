@@ -1,0 +1,12 @@
+{
+  "teilnehmer": "Christoph Böttger",
+  "kundenNr": "12345",
+  "firma": "IT GmbH",
+  "stundeBeginn": 7,
+  "minuteBeginn": 0,
+  "stundeEnde": 13,
+  "minuteEnde": 30,
+  "monat": 2,
+  "jahr": 2022,
+  "feiertage": [6, 8, 15]
+}

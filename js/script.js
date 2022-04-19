@@ -87,23 +87,44 @@ function weekendDays(month, year) {
     return wd;
 }
 
-function createInputs() {
-    // Standardwerte, TODO: config auslesen
-    const stundeBeginn = 7;
-    const minuteBeginn = 0;
-    const stundeEnde = 13;
-    const minuteEnde = 30;
+function loadConfigFile() {
+    // Lösung mit fetch
+    fetch("./config.json")
+        .then(response => { return response.json(); })
+        .then(config => createInputs(config));
+
+    /*
+    // Lösung mit Ajax
+    let config = '';
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        config = JSON.parse(this.responseText);
+        createInputs(config);
+    }
+    xhttp.open("GET", "config.json", true);
+    xhttp.send();
+    */
+}
+
+/**
+ * @param {JSON} config - configuration of default values and holidays
+ */
+function createInputs(config) {
+    const stundeBeginn = config.stundeBeginn;
+    const minuteBeginn = config.minuteBeginn;
+    const stundeEnde = config.stundeEnde;
+    const minuteEnde = config.minuteEnde;
     const arbeitBeginn = twoDigits(stundeBeginn) + ':' + twoDigits(minuteBeginn) + ' Uhr';
     const arbeitEnde = stundeEnde + ':' + minuteEnde + ' Uhr';
-    const monat = 2;
-    const jahr = 2022;
+    const monat = config.monat;
+    const jahr = config.jahr;
     const zeitraum = twoDigits(monat) + ' / ' + jahr.toString();
     const tageMonat = endOfMonth(monat, jahr);
     const wochenenden = weekendDays(monat, jahr);
-    const feiertage = [6, 8, 15];
-    const teilnehmer = "Christoph Böttger";
-    const kundenNr = "12345";
-    const firma = "IT GmbH";
+    const feiertage = config.feiertage;
+    const teilnehmer = config.teilnehmer;
+    const kundenNr = config.kundenNr;
+    const firma = config.firma;
 
     // Werte in die 4 Kopffelder eintragen
     document.getElementById("teilnehmer").value = teilnehmer;
