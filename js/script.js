@@ -88,22 +88,11 @@ function weekendDays(month, year) {
 }
 
 function loadConfigFile() {
-    // Lösung mit fetch
+    // config.json Datei laden
     fetch("./config.json")
         .then(response => { return response.json(); })
-        .then(config => createInputs(config));
-
-    /*
-    // Lösung mit Ajax
-    let config = '';
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-        config = JSON.parse(this.responseText);
-        createInputs(config);
-    }
-    xhttp.open("GET", "config.json", true);
-    xhttp.send();
-    */
+        .then(config => createInputs(config))
+        .catch((error) => console.error('Error:', error));
 }
 
 /**
@@ -131,8 +120,6 @@ function createInputs(config) {
     document.getElementById("kunden-nr").value = kundenNr;
     document.getElementById("praktikumsstelle").value = firma;
     document.getElementById("zeitraum").value = zeitraum;
-
-    console.log(wochenenden);
 
     // Arbeitsbeginn
     generateInputElements("arbeitsbeginn", tageMonat, arbeitBeginn, wochenenden, feiertage);
