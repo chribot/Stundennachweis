@@ -109,15 +109,18 @@ function ostersonntag(jahr) {
 
 /**
  * @param {Number} monat - Monat
+ * @param {String} bl - Bundesland ('BB' oder 'BE')
  * @return {Number[]} Array mit den Tagen
  */
-function unbeweglicheFeiertage(monat) {
+function unbeweglicheFeiertage(monat, bl) {
     let feiertage = [];
     switch (monat) {
         case 1: feiertage.push(1); break;
         case 2: break;
         case 3:
-            // feiertage.push(8); // Berlin
+            if (bl === 'BE') {
+                feiertage.push(8); // Berlin
+            }
             break;
         case 4: break;
         case 5: feiertage.push(1); break;
@@ -127,7 +130,9 @@ function unbeweglicheFeiertage(monat) {
         case 9: break;
         case 10:
             feiertage.push(3);
-            feiertage.push(31); // Brandenburg
+            if (bl === 'BB') {
+                feiertage.push(31); // Brandenburg
+            }
             break;
         case 11: break;
         case 12:

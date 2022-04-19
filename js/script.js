@@ -5,7 +5,9 @@
  * @param {Number[]} arrayWeekend - array of weekend-days (no workdays)
  * @param {Number[]} arrayHoliday - array of holidays
  */
-function generateInputElements(id, numberOfInputs, defaultValue, arrayWeekend, arrayHoliday) {
+function generateInputElements(id,
+                               numberOfInputs, defaultValue,
+                               arrayWeekend, arrayHoliday) {
     let html = '';
     const container = document.getElementById(id);
 
@@ -110,10 +112,11 @@ function createInputs(config) {
     const zeitraum = twoDigits(monat) + ' / ' + jahr.toString();
     const tageMonat = endOfMonth(monat, jahr);
     const wochenenden = weekendDays(monat, jahr);
-    const feiertage = beweglicheFeiertage(monat, jahr).concat( unbeweglicheFeiertage(monat) );
     const teilnehmer = config.teilnehmer;
     const kundenNr = config.kundenNr;
     const firma = config.firma;
+    const bl = config.bundesland; // BB oder BE
+    const feiertage = beweglicheFeiertage(monat, jahr).concat( unbeweglicheFeiertage(monat, bl) );
 
     // Werte in die 4 Kopffelder eintragen
     document.getElementById("teilnehmer").value = teilnehmer;

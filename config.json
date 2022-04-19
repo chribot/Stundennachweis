@@ -6,6 +6,9 @@
   "minuteBeginn": 0,
   "stundeEnde": 13,
   "minuteEnde": 30,
-  "monat": 4,
-  "jahr": 2022
+  "monat": 10,
+  "jahr": 2022,
+
+  "_comment": "Bundesland: BB = Brandenburg oder BE = Berlin",
+  "bundesland": "BB"
 }
