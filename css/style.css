@@ -76,6 +76,9 @@ div.page {
     left: 310px;
     width: 196px;
 }
+#buttonNav {
+    position: fixed;
+}
 @media print {
     body, div.page {
         margin: 0;
@@ -86,5 +89,8 @@ div.page {
     }
     input, #container, #arbeitsbeginn, #arbeitsende, #zeitstunden, #bemerkung {
         border-color: transparent;
+    }
+    button {
+        display: none;
     }
 }
