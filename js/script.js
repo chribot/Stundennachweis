@@ -96,39 +96,39 @@ function changeMonth() {
 
 }
 
+let config = {
+    stundeBeginn: undefined,
+    minuteBeginn: undefined,
+    stundeEnde: undefined,
+    minuteEnde: undefined,
+    monat: undefined,
+    jahr: undefined,
+    teilnehmer: undefined,
+    kundenNr: undefined,
+    firma: undefined,
+    bundesland: undefined
+};
 function loadConfigFile() {
     // config.json Datei laden
     fetch("./config.json")
         .then(response => { return response.json(); })
-        .then(config => createInputs(config))
+        .then(/** JSON */data => { config = data; createInputs(); })
         .catch((error) => console.error('Error:', error));
 }
 
-/**
- * @param {JSON} config - configuration of default values and holidays
- */
-function createInputs(config) {
-    const stundeBeginn = config.stundeBeginn;
-    const minuteBeginn = config.minuteBeginn;
-    const stundeEnde = config.stundeEnde;
-    const minuteEnde = config.minuteEnde;
-    const arbeitBeginn = twoDigits(stundeBeginn) + ':' + twoDigits(minuteBeginn) + ' Uhr';
-    const arbeitEnde = stundeEnde + ':' + minuteEnde + ' Uhr';
-    const monat = config.monat;
-    const jahr = config.jahr;
-    const zeitraum = twoDigits(monat) + ' / ' + jahr.toString();
-    const tageMonat = endOfMonth(monat, jahr);
-    const wochenenden = weekendDays(monat, jahr);
-    const teilnehmer = config.teilnehmer;
-    const kundenNr = config.kundenNr;
-    const firma = config.firma;
+function createInputs() {
+    const arbeitBeginn = twoDigits(config.stundeBeginn) + ':' + twoDigits(config.minuteBeginn) + ' Uhr';
+    const arbeitEnde = config.stundeEnde + ':' + config.minuteEnde + ' Uhr';
+    const zeitraum = twoDigits(config.monat) + ' / ' + config.jahr.toString();
+    const tageMonat = endOfMonth(config.monat, config.jahr);
+    const wochenenden = weekendDays(config.monat, config.jahr);
     const bl = config.bundesland; // BB oder BE
-    const feiertage = beweglicheFeiertage(monat, jahr).concat( unbeweglicheFeiertage(monat, bl) );
+    const feiertage = beweglicheFeiertage(config.monat, config.jahr).concat( unbeweglicheFeiertage(config.monat, bl) );
 
     // Werte in die 4 Kopffelder eintragen
-    document.getElementById("teilnehmer").value = teilnehmer;
-    document.getElementById("kunden-nr").value = kundenNr;
-    document.getElementById("praktikumsstelle").value = firma;
+    document.getElementById("teilnehmer").value = config.teilnehmer;
+    document.getElementById("kunden-nr").value = config.kundenNr;
+    document.getElementById("praktikumsstelle").value = config.firma;
     document.getElementById("zeitraum").value = zeitraum;
 
     // Arbeitsbeginn
@@ -140,8 +140,8 @@ function createInputs(config) {
     fillInputElements("arbeitsende", tageMonat, arbeitEnde, wochenenden, feiertage);
 
     // Zeitstunden
-    const startDate = new Date(0, 0, 0, stundeBeginn, minuteBeginn, 0);
-    const endDate = new Date(0, 0, 0, stundeEnde, minuteEnde, 0);
+    const startDate = new Date(0, 0, 0, config.stundeBeginn, config.minuteBeginn, 0);
+    const endDate = new Date(0, 0, 0, config.stundeEnde, config.minuteEnde, 0);
     const diff = endDate.getTime() - startDate.getTime();
     const diffStunden = diff / 3600000;
     generateInputElements("zeitstunden", tageMonat);
