@@ -133,7 +133,7 @@ function updateInputs() {
     const tageMonat = endOfMonth(config.monat, config.jahr);
     const wochenenden = weekendDays(config.monat, config.jahr);
     const feiertage = beweglicheFeiertage(config.monat, config.jahr)
-    feiertage.concat( unbeweglicheFeiertage(config.monat, config.bundesland) );
+        .concat( unbeweglicheFeiertage(config.monat, config.bundesland) );
 
     // Werte der Inputs ändern
     document.getElementById("zeitraum").value = zeitraum;
@@ -183,8 +183,8 @@ function createInputs() {
     const zeitraum = twoDigits(config.monat) + ' / ' + config.jahr.toString();
     const tageMonat = endOfMonth(config.monat, config.jahr);
     const wochenenden = weekendDays(config.monat, config.jahr);
-    const feiertage = beweglicheFeiertage(config.monat, config.jahr);
-    feiertage.concat( unbeweglicheFeiertage(config.monat, config.bundesland) );
+    const feiertage = beweglicheFeiertage(config.monat, config.jahr)
+        .concat( unbeweglicheFeiertage(config.monat, config.bundesland) );
 
     // Werte in die 4 Kopffelder eintragen
     document.getElementById("teilnehmer").value = config.teilnehmer;
