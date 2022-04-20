@@ -27,6 +27,9 @@ div.page {
     left: 563px;
     width: 155px;
 }
+#zeitraum[disabled] {
+    color: black;
+}
 #teilnehmer, #kunden-nr {
     top: 166px;
 }
