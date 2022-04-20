@@ -6,9 +6,11 @@
   "minuteBeginn": 0,
   "stundeEnde": 13,
   "minuteEnde": 30,
-  "monat": 4,
-  "jahr": 2022,
 
-  "_comment": "Bundesland: BB = Brandenburg oder BE = Berlin",
+  "_comment1": "Monat oder Jahr auf 0 setzen, dann wird heutiges Datum genommen",
+  "monat": 0,
+  "jahr": 0,
+
+  "_comment2": "Bundesland: BB = Brandenburg oder BE = Berlin",
   "bundesland": "BB"
 }

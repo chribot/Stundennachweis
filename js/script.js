@@ -164,6 +164,9 @@ function loadConfigFile() {
             config = data;
 
             // zusätzliche Daten hinzufügen
+            let heute = new Date();
+            if (config.monat === 0) config.monat = heute.getMonth()+1;
+            if (config.jahr === 0) config.jahr = heute.getFullYear();
             config.arbeitBeginn = twoDigits(config.stundeBeginn) + ':' + twoDigits(config.minuteBeginn) + ' Uhr';
             config.arbeitEnde = config.stundeEnde + ':' + config.minuteEnde + ' Uhr';
             const startDate = new Date(0, 0, 0, config.stundeBeginn, config.minuteBeginn, 0);
