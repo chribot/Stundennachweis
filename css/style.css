@@ -53,6 +53,9 @@ div.page {
     height: 23px;
     margin-top: 0.4%; /* when using %: margin is calculated against width */
 }
+#container>div>input.gray {
+    background-color: rgb(244, 242, 239);
+}
 #container>#bemerkung>input {
     margin-top: 0.17%;
 }

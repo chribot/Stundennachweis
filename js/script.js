@@ -26,7 +26,6 @@ function fillInputElements(id,
                                numberOfInputs, defaultValue,
                                arrayWeekend, arrayHoliday) {
     const /**HTMLInputElement*/inputFelder = document.getElementById(id).childNodes;
-    const hgFarbe = "rgb(244,242,239)";
     let day = 1;
     for (let i = 0; i < 31; i++) {
         if (i < numberOfInputs) {
@@ -35,26 +34,26 @@ function fillInputElements(id,
                 if (id==="bemerkung") {
                     inputFelder[i].value = "Wochenende";
                 } else {
-                    inputFelder[i].style.backgroundColor = hgFarbe;
+                    inputFelder[i].className = "gray";
                     inputFelder[i].value = "---";
                 }
             } else if (arrayHoliday.includes(day)) {
                 if (id==="bemerkung") {
                     inputFelder[i].value = "Feiertag";
                 } else {
-                    inputFelder[i].style.backgroundColor = hgFarbe;
+                    inputFelder[i].className = "gray";
                     inputFelder[i].value = "---";
                 }
             } else {
                 inputFelder[i].value = defaultValue;
-                inputFelder[i].style.backgroundColor = "transparent";
+                inputFelder[i].removeAttribute("class");
             }
             day++;
         } else {
             // alle anderen Felder im Monat zurücksetzen
             inputFelder[i].value = '';
             inputFelder[i].disabled = true;
-            inputFelder[i].style.backgroundColor = "transparent";
+            inputFelder[i].removeAttribute("class");
         }
     }
 }
