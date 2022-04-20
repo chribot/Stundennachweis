@@ -1,24 +1,27 @@
 /**
  * @param {String} id - id of parent div
  * @param {Number} numberOfInputs - id of parent div
- * @param {String} defaultValue - text for input elements
- * @param {Number[]} arrayWeekend - array of weekend-days (no workdays)
- * @param {Number[]} arrayHoliday - array of holidays
  */
-function generateInputElements(id,
-                               numberOfInputs, defaultValue,
-                               arrayWeekend, arrayHoliday) {
-    let html = '';
+function generateInputElements(id, numberOfInputs) {
     const container = document.getElementById(id);
-
-    // generiere input Felder
+    let html = '';
     for (let i = 0; i < numberOfInputs; i++) {
         html += '<input type="text">';
     }
     container.innerHTML = html;
+}
 
-    // Wert eintragen
-    const inputFelder = container.childNodes;
+/**
+ * @param {String} id - id of parent div
+ * @param {Number} numberOfInputs - id of parent div
+ * @param {String} defaultValue - text for input elements
+ * @param {Number[]} arrayWeekend - array of weekend-days (no workdays)
+ * @param {Number[]} arrayHoliday - array of holidays
+ */
+function fillInputElements(id,
+                               numberOfInputs, defaultValue,
+                               arrayWeekend, arrayHoliday) {
+    const inputFelder = document.getElementById(id).childNodes;
     const hgFarbe = "rgb(244,242,239)";
     let day = 1;
     for (const inputFeld of inputFelder) {
@@ -89,6 +92,10 @@ function weekendDays(month, year) {
     return wd;
 }
 
+function changeMonth() {
+
+}
+
 function loadConfigFile() {
     // config.json Datei laden
     fetch("./config.json")
@@ -125,18 +132,22 @@ function createInputs(config) {
     document.getElementById("zeitraum").value = zeitraum;
 
     // Arbeitsbeginn
-    generateInputElements("arbeitsbeginn", tageMonat, arbeitBeginn, wochenenden, feiertage);
+    generateInputElements("arbeitsbeginn", tageMonat);
+    fillInputElements("arbeitsbeginn", tageMonat, arbeitBeginn, wochenenden, feiertage);
 
     // Arbeitsende
-    generateInputElements("arbeitsende", tageMonat, arbeitEnde, wochenenden, feiertage);
+    generateInputElements("arbeitsende", tageMonat);
+    fillInputElements("arbeitsende", tageMonat, arbeitEnde, wochenenden, feiertage);
 
     // Zeitstunden
     const startDate = new Date(0, 0, 0, stundeBeginn, minuteBeginn, 0);
     const endDate = new Date(0, 0, 0, stundeEnde, minuteEnde, 0);
     const diff = endDate.getTime() - startDate.getTime();
     const diffStunden = diff / 3600000;
-    generateInputElements("zeitstunden", tageMonat, diffStunden.toString(), wochenenden, feiertage);
+    generateInputElements("zeitstunden", tageMonat);
+    fillInputElements("zeitstunden", tageMonat, diffStunden.toString(), wochenenden, feiertage);
 
     // Bemerkung
-    generateInputElements("bemerkung", tageMonat, '', wochenenden, feiertage);
+    generateInputElements("bemerkung", tageMonat);
+    fillInputElements("bemerkung", tageMonat, '', wochenenden, feiertage);
 }
