@@ -1,4 +1,4 @@
-div.page {
+#page-A4 {
     background: white;
     display: block;
     margin: 0 auto 0.5cm auto;
@@ -86,7 +86,7 @@ div.page {
     position: fixed;
 }
 @media print {
-    body, div.page {
+    body, #page-A4 {
         margin: 0;
         box-shadow: unset;
     }

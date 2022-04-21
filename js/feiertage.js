@@ -1,3 +1,8 @@
+/*
+* Author: Christoph Böttger
+* Date: 21.04.2022
+*/
+
 /**
  * @param {Number} jahr - Jahr als vierstellige Zahl
  * @return {Date} - Ostersonntag im angegebenen Jahr

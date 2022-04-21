@@ -1,3 +1,8 @@
+/*
+* Author: Christoph Böttger
+* Date: 21.04.2022
+*/
+
 /**
  * @param {String} id - id of parent div
  * @param {Number} numberOfInputs - id of parent div
